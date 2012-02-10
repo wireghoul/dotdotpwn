@@ -1,0 +1,43 @@
+                          --= TO DO =--
+
+
+-------------------------------------
+
+HTTPS Module
+Implementation of the HTTPS Module to DotDotPwn, including the 
+BisectionAlgorithm() adaptation into it.
+
+Idea By: Alejandro Hernandez (nitr0us)
+         http://twitter.com/nitr0usmx
+
+-------------------------------------
+
+IPS/IDS Evasion
+Implementation of obfuscation/evasion/encoding/double (en|de)coding techniques 
+before sending the fuzz patterns.
+
+Proxy functionality
+Implementation of proxy functionality in order to interact with 3rd-party
+software such as TOR, socat, etc...
+
+Idea By: Carlos A. Ayala Rocha
+         http://twitter.com/caar2000
+
+-------------------------------------
+
+Path obfuscation techniques
+(e.g. /etc/./passwd or /etc/proc/../passwd instead of /etc/passwd)
+
+Idea By: Christian Yerena
+         http://twitter.com/preth00nker
+
+------------------------------------- 
+
+Save the results of the BisectionAlgorithm in the reports. It's a recursive
+subroutine and I'm a newbie working with open file descriptors between
+packages and recursive subroutines.
+
+Idea By: Alejandro Hernandez (nitr0us)
+         http://twitter.com/nitr0usmx
+
+------------------------------------- 

@@ -1,0 +1,79 @@
+
+                     --= CORE DEVELOPMENT TEAM =--
+
+ Christian Navarrete aka chr1x         Alejandro Hernandez H. aka nitr0us
+   http://twitter.com/chr1x              http://twitter.com/nitr0usmx
+        chr1x@sectester.net                 nitrousenador@gmail.com
+                                         http://www.brainoverflow.org
+
+ CubilFelino Security Research Lab     Chatsubo [(in)Security Dark] Labs
+   http://chr1x.sectester.net          http://chatsubo-labs.blogspot.com   
+
+                        dotdotpwn@sectester.net
+                     http://dotdotpwn.sectester.net
+
+
+
+                          --= CONTRIBUTORS =--
+
+-------------------------------------
+
+Contribution: Idea
+Use the Bisection Algorithm (http://en.wikipedia.org/wiki/Bisection_method) to detect
+the exact deepness of a directory traversal vulnerability once it has been found.
+Origin of -X switch.
+
+By: Roberto Salgado aka LightOS
+    http://twitter.com/LightOS
+    http://www.websec.ca
+
+-------------------------------------
+
+Contribution: Idea and Code
+Not always include the @Extra_files (e.g. web.config, httpd.conf, etc.). Origin of the -E switch.
+Specify the Operating System type if known ("windows" or "unix"). Origin of the -o switch.
+
+By: Eduardo Ruiz Duarte aka Beck
+    http://twitter.com/toorandom
+    http://math.co.ro
+    http://b3ck.blogspot.com
+
+-------------------------------------
+
+Contribution: Code
+Save a results' report into the Reports folder. Origin of the -r switch.
+Treatment of SIGINT in order to print the number of traversals found when Ctrl + C is pressed.
+Random User-Agent in HTTP requests for IDS/IPS detection avoidance.
+
+By: Diego Boy
+    http://twitter.com/Diego_Boy
+
+-------------------------------------
+
+Contribution: Code
+Random User-Agent in HTTP requests for IDS/IPS detection avoidance.
+
+By: Cristian Urrutia aka Gashnark
+    http://twitter.com/blion_tec
+
+-------------------------------------
+
+Contribution: Idea and Code
+Option to specify a different HTTP Method from GET when using the 'http' module.
+Origin of the -M switch. Other HTTP methods are [POST | HEAD | COPY | MOVE]
+
+By: Christian Yerena
+    http://twitter.com/preth00nker
+
+-------------------------------------
+
+Contribution: Porting DotDotPwn 2.1 to Pentoo Linux
+Creation of the ebuild of DotDotPwn 2.1 to be included into Pentoo Linux (a security-focused
+Live CD based on Gentoo Linux).
+
+http://trac.pentoo.ch/changeset/2650/
+
+By: Alvaro Soto
+    http://twitter.com/alsotoes
+
+-------------------------------------

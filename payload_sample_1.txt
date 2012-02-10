@@ -1,0 +1,12 @@
+GET /foobar/index.php?file=TRAVERSAL HTTP/1.0
+Host: www.qwertyfoobar.org
+User-Agent: Mozilla/5.0 (Windows NT 6.0; rv:5.0.1) Gecko/20100101 Firefox/5.0.1
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: es-MX,es;q=0.8,en-us;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7
+Connection: keep-alive
+Referer: http://www.qwertyfoobar.org/main.php
+Cookie: user=johndoe; abc=1379415096; file=TRAVERSAL; command=get
+
+

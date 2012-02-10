@@ -1,0 +1,157 @@
+CHANGELOG
+=========
+
+This file contains the history of the changes made to DotDotPwn since
+it's conception.
+
+
+----------------
+DotDotPwn v3.0
+Release date: 03/Feb/2012 (Release at BugCon Security Conferences 2012)
+
+Changes / Enhancements / Features:
+* -X switch that implements the Bisection Algorithm in order to detect
+  the exact deepness once a directory traversal vulnerability has been
+  found.
+  http://en.wikipedia.org/wiki/Bisection_method
+* -M switch to specify another method different from the default (GET)
+  when the http module is used.
+  Other HTTP methods are [POST | HEAD | COPY | MOVE]
+* -e switch to specify the file extension to be appended at the end of 
+  each fuzz string (e.g. ".php", ".jpg", ".inc")
+* New dots & slashes encodings (fuzz patterns) based on:
+  https://www.owasp.org/index.php/Canonicalization,_locale_and_Unicode
+  http://wikisecure.net/security/uri-encoding-to-bypass-idsips
+
+Supported modules:
+- HTTP
+- HTTP URL
+- FTP
+- TFTP
+- Payload (Protocol independent)
+- STDOUT
+
+
+----------------
+DotDotPwn v3.0beta
+Release date: 03/Aug/2011 (Black Hat USA 2011 (Arsenal) - Conference CD)
+Demo: 21/Jul/2011 (Campus Party Mexico 2011)
+
+Changes / Enhancements / Features:
+
+* Random User-Agent in HTTP requests for IDS/IPS detection avoidance
+  (previously it used to send "User-Agent: DotDotPwn v2.1")
+* -o switch to specify the Operating System type if known
+  ("windows" or "unix", or "generic" to include both of them)
+* -E switch to include the files in user-defined @Extra_files array
+  (config.inc.php, web.config, etc.)
+* -r switch to save the results into the specified file
+  (by default, it saves a report into the 'Reports' folder)
+* Treatment of SIGINT in order to print the number of traversals found when 
+  Ctrl + C is pressed.
+* New dots encodings (fuzz patterns)
+* Some functionality bugs were corrected 
+
+Supported modules:
+- HTTP
+- HTTP URL
+- FTP
+- TFTP
+- Payload (Protocol independent)
+- STDOUT
+
+
+----------------
+DotDotPwn v2.1
+Release date: 29/Oct/2010 (PUBLIC Release at BugCon Security Conferences 2010)
+Release date: 14/Oct/2010 (NON-PUBLIC Version)
+
+Changes / Enhancements / Features:
+
+* STDOUT module implemented to be used as you wish (Read the EXAMPLES.txt to 
+  see some examples)
+* TFTP Module implemented
+* -k switch for false positive avoidance making another verification once the
+  HTTP Status 200 is received. This option looks for the specified parameter
+  in the server's response.
+  (e.g. -k "root:" if trying with /etc/passwd file
+  or -k "localhost" in windows/system32/drivers/etc/hosts)
+  With this option enabled, the HTTP module will print the total of false 
+  positives detected during the scan as long as there is more than one.
+* -p switch for payload specification.
+  This option simply takes the text file passed as a parameter, replaces the
+  'TRAVERSAL' tokens and sends it to the target (-h switch) in the specified
+  port (-x switch)
+  (e.g. a file called request.txt that contains an HTTP request including
+  cookies, session ids, variables, etc. and the 'TRAVERSAL' tokens within the
+  request that would be fuzzed)
+* For the impatient, when it's working in quiet mode (-q switch), it prints
+  dots each certain number of attempts to inform that it's still working ;).
+* Prints the number of vulnerabilities found before exiting when an error 
+  ocurrs (e.g. the Web server doesn't respond anymore because it has reached
+  the maximum number of clients/sockets/threads)
+* Prints the time taken at the end of the testing
+* A cleaner usage message (help message)
+
+Supported modules:
+- HTTP
+- HTTP URL
+- FTP
+- TFTP
+- Payload (Protocol independent)
+- STDOUT
+
+
+----------------
+DotDotPwn v2.0
+Release date: 2/Sept/2010 (NON-PUBLIC Version)
+
+Changes / Enhancements / Features:
+
+* From Checker to Fuzzer
+* Rewritten from the scratch
+* Modular architechture (DotDotPwn packages)
+* Traversal Engine to automatically create the fuzzing patterns to be sent.
+  This engine makes all the combinations between the dots and slashes
+  encodings, iterates the number of deepness passed as argument and finally,
+  it concatenates the filenames intelligently according to the Operating System 
+  detected (in case of -O switch enabled), otherwise, the engine includes all 
+  the defined file sets (Windows, UNIX and Generic).
+* -O switch for Operating System (nmap)
+* -s switch for service detection
+* -d switch to specify the desired deepness of traversals
+  (e.g. deepness 3 equals to ../../../)
+* -f switch available to define a specific file name to retrive
+* -U and -P switches to supply specific usernames/passwords
+* -t switch to specify the time in milliseconds between each attemp
+* -x switch to specify a different TCP/UDP port than the defaults
+* -b switch to break after the first vulnerability is found 
+* -q switch for quiet mode (doesn't print each attemp in STDOUT)
+* Special treatment of Slash/Backslash in filenames in order to have a 
+  correct semantic within each traversal string.
+* Improvement in the FTP module to compare against the server's response code
+  instead of vendor-dependent response message (compliance with RFC 959 FTP)
+* Improvement in the parameter passing
+* A cool banner was included ;)
+
+Supported modules:
+- HTTP
+- HTTP URL
+- FTP
+
+
+---------------
+DotDotPwn v1.0
+Release date: 21/Aug/2010
+
+Features:
+* Traversal database (external .txt files) holds 881 attack payloads
+* -update flag available to perform an online database update
+* Only checks the presence of boot.ini on Windows based HTTP/FTP servers
+* Based on Shlomi Narkolayev.s Directory Traversal Cheat Sheet
+  http://narkolayev-shlomi.blogspot.com/2010/04/directory-traversal-fuzz-list.html
+
+
+Supported modules:
+- HTTP
+- FTP

@@ -1,0 +1,4 @@
+GET /unauthenticated/TRAVERSAL HTTP/1.0
+User-Agent: Mozilla/5.0 (Windows NT 6.0; rv:5.0.1) Gecko/20100101 Firefox/5.0.1
+
+
