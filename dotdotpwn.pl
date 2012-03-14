@@ -172,11 +172,13 @@ switch($module){
 		# URL Parsing
 		die "Invalid URL format!\n" if $url !~ m|(\w+)://([\w\.]+):?(\d*)?/|;
 
+		$port = 80;
 		$proto_url = $1;
+		$port = 443 if ($proto_url eq 'https');
 		$host  = $2;
-		$port = $3 || 80;
+		$port = $3 if $3;
 
-		die "'$proto_url' Protocol not supported\n" if $proto_url ne "http";
+		#die "'$proto_url' Protocol not supported\n" if $proto_url ne "http";
 
 		die "No \"TRAVERSAL\" keyword found in the supplied URL\n" if $url !~ /TRAVERSAL/;
 

@@ -20,7 +20,7 @@ use Exporter 'import';
 
 use DotDotPwn::BisectionAlgorithm;
 
-use HTTP::Lite;
+use LWP::UserAgent;
 use Time::HiRes qw(usleep);
 
 sub FuzzHTTP_Url{
@@ -42,26 +42,27 @@ sub FuzzHTTP_Url{
 	}
 
 	foreach $traversal (@main::traversals){
-		my $http = new HTTP::Lite;
+		my $http = LWP::UserAgent->new;
+		my $resp;
 
 		$UserAgent = @UserAgents[int(rand(@UserAgents))];
-		$http->add_req_header("User-Agent", $UserAgent);
+		$http->agent($UserAgent);
 
 		$tmp_url = $url; # Not to overwrite the TRAVERSAL token
 		$tmp_url =~ s/TRAVERSAL/$traversal/g;
 
 		# Return 1 (vulnerable) or 0 (not vulnerable) to BisectionAlgorithm()
 		if($bisection_request){
-			$http->request($bisection_request);
+			$resp = $http->get($bisection_request);
 
-			if($http->body() =~ /$main::pattern/s ){
+			if($resp->content =~ /$main::pattern/s ){
 				return 1; # Vulnerable
 			} else {
 				return 0; # Not Vulnerable
 			}
 		}
-
-		if(!$http->request($tmp_url)){
+		$resp = $http->get($tmp_url);
+		if(!$resp->is_success){
 			my $runtime = time - $main::start_time;
 			for my $fh (STDOUT, REPORT) {
 				printf $fh "\n[+] Fuzz testing finished after %.2f minutes ($runtime seconds)\n", ($runtime / 60);
@@ -71,7 +72,7 @@ sub FuzzHTTP_Url{
 			die "[-] Web server didn't respond !\n";
 		}
 
-		if($http->body() =~ /$main::pattern/s ){
+		if($resp->content =~ /$main::pattern/s ){
 			for my $fh (STDOUT, REPORT) { print $fh "\n[*] Testing URL: $tmp_url <- VULNERABLE\n"; }
 			$n_travs++;
 
