@@ -33,7 +33,6 @@ Only if you plan to use the OS detection feature
 (needs root priviledges)
 
 Perl modules:
-- HTTP::Lite
 - Net::FTP
 - TFTP
 - Time::HiRes
