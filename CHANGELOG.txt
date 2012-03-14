@@ -3,7 +3,12 @@ CHANGELOG
 
 This file contains the history of the changes made to DotDotPwn since
 it's conception.
+----------------
+DotDotPwn v3.0.1
+Release date: DD/MMM/2012
 
+Changes / Enhancements / Features:
+HTTP::Lite dependancy removed (Replaced with LWP core modules)
 
 ----------------
 DotDotPwn v3.0
