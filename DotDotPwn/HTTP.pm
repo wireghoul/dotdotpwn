@@ -10,11 +10,12 @@ use Exporter 'import';
 
 use DotDotPwn::BisectionAlgorithm;
 
-use HTTP::Lite;
+use HTTP::Request;
+use LWP::UserAgent;
 use Time::HiRes qw(usleep);
 
 sub FuzzHTTP{
-	my ($host, $port, $method, $bisection_request) = @_;
+	my ($host, $port, $method, $bisection_request, $ssl) = @_;
 	our $n_travs = 0;
 	my $false_pos = 0;
 	my $foo = 0; # Used as an auxiliary variable in quiet mode (see below)
@@ -30,12 +31,14 @@ sub FuzzHTTP{
 		open(REPORT , ">>$main::report");
 	}
 
-	foreach $traversal (@main::traversals){
-		my $http = new HTTP::Lite;
+	foreach my $traversal (@main::traversals){
+		my $http = LWP::UserAgent->new();
 
 		$UserAgent = @UserAgents[int(rand(@UserAgents))];
-		$http->add_req_header("User-Agent", $UserAgent);
-		$http->method($method);
+		#$http->add_req_header("User-Agent", $UserAgent);
+		#$http->method($method);
+                my $request = new HTTP::Request $method, ($ssl ? "https://":"http://") . "$host" . ($port ? ":$port" : "") . "/" . $traversal;
+                $request->header('User-Agent', $UserAgent);
 
 		# Return 1 (vulnerable) or 0 (not vulnerable) to BisectionAlgorithm()
 		if($bisection_request){
@@ -56,7 +59,8 @@ sub FuzzHTTP{
 			}
 		}
 
-		$request = "http://$host" . ($port ? ":$port" : "") . "/" . $traversal;
+		#my $request = new HTTP::Request $method, "http://$host" . ($port ? ":$port" : "") . "/" . $traversal;
+                #$request->header('User-Agent', $UserAgent);
 
 		if(!$http->request($request)){
 			my $runtime = time - $main::start_time;
