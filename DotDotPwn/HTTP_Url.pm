@@ -33,8 +33,6 @@ sub FuzzHTTP_Url{
 	my @UserAgents = <AGENTS>;
 	close(AGENTS);
 
-	for(@UserAgents) { chomp; }
-
 	if(!$bisection_request){
 		open(REPORT , ">>$main::report");
 
@@ -46,6 +44,7 @@ sub FuzzHTTP_Url{
 		my $resp;
 
 		$UserAgent = @UserAgents[int(rand(@UserAgents))];
+		$UserAgent =~ s/[\r\n]//g;
 		$http->agent($UserAgent);
 
 		my $tmp_url = $url; # Not to overwrite the TRAVERSAL token
