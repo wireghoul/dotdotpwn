@@ -37,7 +37,7 @@ sub FuzzHTTP{
 		$UserAgent = @UserAgents[int(rand(@UserAgents))];
 		#$http->add_req_header("User-Agent", $UserAgent);
 		#$http->method($method);
-                my $request = new HTTP::Request $method, ($ssl ? "https://":"http://") . "$host" . ($port ? ":$port" : "") . "/" . $traversal;
+                my $request = new HTTP::Request $method, '' . ($ssl ? "https://" : "http://") . "$host" . ($port ? ":$port" : "") . "/" . $traversal;
                 $request->header('User-Agent', $UserAgent);
 
 		# Return 1 (vulnerable) or 0 (not vulnerable) to BisectionAlgorithm()
