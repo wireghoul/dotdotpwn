@@ -41,14 +41,14 @@ sub FuzzHTTP_Url{
 		for my $fh (STDOUT, REPORT) { print $fh "[+] Replacing \"TRAVERSAL\" with the traversals created and sending\n"; }
 	}
 
-	foreach $traversal (@main::traversals){
+	foreach my $traversal (@main::traversals){
 		my $http = LWP::UserAgent->new;
 		my $resp;
 
 		$UserAgent = @UserAgents[int(rand(@UserAgents))];
 		$http->agent($UserAgent);
 
-		$tmp_url = $url; # Not to overwrite the TRAVERSAL token
+		my $tmp_url = $url; # Not to overwrite the TRAVERSAL token
 		$tmp_url =~ s/TRAVERSAL/$traversal/g;
 
 		# Return 1 (vulnerable) or 0 (not vulnerable) to BisectionAlgorithm()
