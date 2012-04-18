@@ -25,8 +25,6 @@ sub FuzzHTTP{
 	my @UserAgents = <AGENTS>;
 	close(AGENTS);
 
-	for(@UserAgents) { chomp; }
-
 	if(!$bisection_request){
 		open(REPORT , ">>$main::report");
 	}
@@ -35,9 +33,8 @@ sub FuzzHTTP{
 		my $http = LWP::UserAgent->new();
 
 		$UserAgent = @UserAgents[int(rand(@UserAgents))];
-		#$http->add_req_header("User-Agent", $UserAgent);
-		#$http->method($method);
                 my $request = new HTTP::Request $method, '' . ($ssl ? "https://" : "http://") . "$host" . ($port ? ":$port" : "") . "/" . $traversal;
+		$UserAgent =~ s/[\r\n]//g;
                 $request->header('User-Agent', $UserAgent);
 
 		# Return 1 (vulnerable) or 0 (not vulnerable) to BisectionAlgorithm()
