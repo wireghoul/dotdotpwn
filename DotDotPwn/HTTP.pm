@@ -58,8 +58,8 @@ sub FuzzHTTP{
 
 		#my $request = new HTTP::Request $method, "http://$host" . ($port ? ":$port" : "") . "/" . $traversal;
                 #$request->header('User-Agent', $UserAgent);
-
-		if(!$http->request($request)){
+                my $response = $http->request($request);
+		if(!$response){
 			my $runtime = time - $main::start_time;
 			for my $fh (STDOUT, REPORT) {
 				print  $fh "\n[+] False positives detected: $false_pos" if $false_pos > 0;
@@ -69,7 +69,7 @@ sub FuzzHTTP{
 			die "[-] Web server ($host) didn't respond !\n";
 		}
 
-		if($http->status() == 200){
+		if($response->code == 200){
 			if($main::pattern){
 				if($http->body() =~ /$main::pattern/s ){
 					for my $fh (STDOUT, REPORT) { print $fh "\n[*] Testing Path (response analysis): $request <- VULNERABLE!\n"; }
@@ -113,7 +113,7 @@ sub FuzzHTTP{
 		if($main::quiet){
 			print ". " unless $foo++ % $main::dot_quiet_mode;
 		} else{
-			print "[*] HTTP Status: " . $http->status() . " | Testing Path: $request\n";
+			print "[*] HTTP Status: " . $response->code . " | Testing Path: ".$request->uri."\n";
 		}
 
 		usleep($main::time);
