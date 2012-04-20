@@ -59,7 +59,7 @@ sub FuzzHTTP{
 		#my $request = new HTTP::Request $method, "http://$host" . ($port ? ":$port" : "") . "/" . $traversal;
                 #$request->header('User-Agent', $UserAgent);
                 my $response = $http->request($request);
-		if(!$response){
+		if($response->message =~ /[Cc]onnect/){ # LWP reports 500 errors for Connection failed, timeout, etc :(
 			my $runtime = time - $main::start_time;
 			for my $fh (STDOUT, REPORT) {
 				print  $fh "\n[+] False positives detected: $false_pos" if $false_pos > 0;
