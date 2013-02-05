@@ -48,6 +48,10 @@ my @Extra_files = ("config.inc.php", "web.config");
 # Dots (..) representations to be combined in the Traversal Engine
 our @Dots = ("..",
              "..%01",
+             ".?", "??", "?.",
+             ".%2e", "%2e.",
+             ".../.",
+             "..../",
              "%2e%2e", "%c0%6e",
              "0x2e0x2e", "%c0.%c0.",
              "%252e%252e",
