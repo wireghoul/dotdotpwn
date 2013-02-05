@@ -3,15 +3,6 @@
 
 -------------------------------------
 
-HTTPS Module
-Implementation of the HTTPS Module to DotDotPwn, including the 
-BisectionAlgorithm() adaptation into it.
-
-Idea By: Alejandro Hernandez (nitr0us)
-         http://twitter.com/nitr0usmx
-
--------------------------------------
-
 IPS/IDS Evasion
 Implementation of obfuscation/evasion/encoding/double (en|de)coding techniques 
 before sending the fuzz patterns.

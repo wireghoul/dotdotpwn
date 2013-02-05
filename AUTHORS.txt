@@ -18,6 +18,16 @@
 
 -------------------------------------
 
+Contribution: Idea and Code
+SSL support in http-uri and http modules. 
+Changed from HTTP::Lite to core HTTP libraries (LWP).
+Added more dot encodings
+By: Eldar Marcussen aka Wireghoul
+    http://twitter.com/Wireghoul
+    http://www.justanotherhacker.com
+
+-------------------------------------
+
 Contribution: Idea
 Use the Bisection Algorithm (http://en.wikipedia.org/wiki/Bisection_method) to detect
 the exact deepness of a directory traversal vulnerability once it has been found.
