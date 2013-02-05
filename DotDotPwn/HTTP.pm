@@ -15,7 +15,7 @@ use LWP::UserAgent;
 use Time::HiRes qw(usleep);
 
 sub FuzzHTTP{
-	my ($host, $port, $method, $bisection_request, $ssl) = @_;
+	my ($host, $port, $ssl, $method, $bisection_request) = @_;
 	our $n_travs = 0;
 	my $false_pos = 0;
 	my $foo = 0; # Used as an auxiliary variable in quiet mode (see below)
@@ -39,11 +39,11 @@ sub FuzzHTTP{
 
 		# Return 1 (vulnerable) or 0 (not vulnerable) to BisectionAlgorithm()
 		if($bisection_request){
-			$http->request($bisection_request);
+			my $reponse = $http->request($bisection_request);
 
-			if($http->status() == 200){
+			if($response->code == 200){
 				if($main::pattern){
-					if($http->body() =~ /$main::pattern/s ){
+					if($http->content() =~ /$main::pattern/s ){
 						return 1; # Vulnerable
 					} else {
 						return 0; # Not Vulnerable
@@ -57,8 +57,8 @@ sub FuzzHTTP{
 		}
 
 		#my $request = new HTTP::Request $method, "http://$host" . ($port ? ":$port" : "") . "/" . $traversal;
-                #$request->header('User-Agent', $UserAgent);
-                my $response = $http->request($request);
+    #$request->header('User-Agent', $UserAgent);
+    my $response = $http->request($request);
 		if($response->message =~ /[Cc]onnect/){ # LWP reports 500 errors for Connection failed, timeout, etc :(
 			my $runtime = time - $main::start_time;
 			for my $fh (STDOUT, REPORT) {
@@ -71,8 +71,8 @@ sub FuzzHTTP{
 
 		if($response->code == 200){
 			if($main::pattern){
-				if($http->body() =~ /$main::pattern/s ){
-					for my $fh (STDOUT, REPORT) { print $fh "\n[*] Testing Path (response analysis): $request <- VULNERABLE!\n"; }
+				if($response->content =~ /$main::pattern/s ){
+					for my $fh (STDOUT, REPORT) { print $fh "\n[*] Testing Path (response analysis): ".$request->uri." <- VULNERABLE!\n"; }
 					$n_travs++;
 
 					if($main::bisect){
@@ -87,13 +87,13 @@ sub FuzzHTTP{
 					if($main::quiet){
 						print ". " unless $foo++ % $main::dot_quiet_mode;
 					} else {
-						print "\n[*] Testing Path: $request <- FALSE POSITIVE!\n";
+						print "\n[*] Testing Path: ".$request->uri." <- FALSE POSITIVE!\n";
 					}
 
 					$false_pos++;
 				}
 			} else {
-				for my $fh (STDOUT, REPORT) { print $fh "\n[*] Testing Path: $request <- VULNERABLE!\n"; }
+				for my $fh (STDOUT, REPORT) { print $fh "\n[*] Testing Path: ".$request->uri." <- VULNERABLE!\n"; }
 				$n_travs++;
 
 				if($main::bisect){
