@@ -109,6 +109,7 @@ if(@ARGV < 2){ # -m module required
 	print "\t-d\tDeep of traversals (e.g. deepness 3 equals to ../../../; default: 6)\n";
 	print "\t-f\tSpecific filename (e.g. /etc/motd; default: according to OS detected, defaults in TraversalEngine.pm)\n";
 	print "\t-E\tAdd \@Extra_files in TraversalEngine.pm (e.g. web.config, httpd.conf, etc.)\n";
+  print "\t-S\tUse SSL - currently only supported for http module (use https:// for http-uri)\n";
 	print "\t-u\tURL with the part to be fuzzed marked as TRAVERSAL (e.g. http://foo:8080/id.php?x=TRAVERSAL&y=31337)\n";
 	print "\t-k\tText pattern to match in the response (http-url & payload modules - e.g. \"root:\" if trying /etc/passwd)\n";
 	print "\t-p\tFilename with the payload to be sent and the part to be fuzzed marked with the TRAVERSAL keyword\n";
@@ -126,7 +127,7 @@ if(@ARGV < 2){ # -m module required
 	exit;
 }
 
-getopts("qXOsbEm:h:U:P:f:u:k:d:x:t:p:o:r:M:e:");
+getopts("qXOSsbEm:h:U:P:f:u:k:d:x:t:p:o:r:M:e:");
 
 our $module  = $opt_m || die "Module is neccesary (-m)\n";
 our $host    = $opt_h || die "Hostname is neccesary (-h)\n" unless ($module eq "http-url" || $module eq "stdout");
@@ -138,6 +139,7 @@ our $bisdeep = 16; # Deepness used when the Bisection Algorithm is going to be u
 our $quiet   = $opt_q;
 our $break   = $opt_b;
 our $url     = $opt_u;
+my  $ssl     = $opt_S;
 our $pattern = $opt_k;
 my  $file    = $opt_f;
 our $extra_f = $opt_E;
@@ -164,7 +166,7 @@ print $DotDotPwn if $module ne "stdout";
 # Variable asignment and other validations per module
 switch($module){
 	case "ftp"  {	$port = $opt_x || 21;	}
-	case "http" {	$port = $opt_x || 80;	}
+	case "http" {	$port = $opt_x || $ssl ? 443 : 80;	}
 	case "tftp" {	$port = $opt_x || 69;	}
 	case "http-url" {
 		die "URL is neccesary (-u)\n" unless $url;
@@ -279,7 +281,7 @@ use Switch;
 
 switch($module){
 	case "ftp"      { $n_travs = FuzzFTP($host, $port, $user, $pass); }
-	case "http"     { $n_travs = FuzzHTTP($host, $port, $method); }
+	case "http"     { $n_travs = FuzzHTTP($host, $port, $ssl, $method); }
 	case "tftp"     { $n_travs = FuzzTFTP($host, $port); }
 	case "payload"  { $n_travs = FuzzPayload($host, $port, $payload); }
 	case "http-url" { $n_travs = FuzzHTTP_Url($url); }
