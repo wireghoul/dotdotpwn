@@ -109,7 +109,7 @@ if(@ARGV < 2){ # -m module required
 	print "\t-d\tDeep of traversals (e.g. deepness 3 equals to ../../../; default: 6)\n";
 	print "\t-f\tSpecific filename (e.g. /etc/motd; default: according to OS detected, defaults in TraversalEngine.pm)\n";
 	print "\t-E\tAdd \@Extra_files in TraversalEngine.pm (e.g. web.config, httpd.conf, etc.)\n";
-  print "\t-S\tUse SSL - currently only supported for http module (use https:// for http-uri)\n";
+  print "\t-S\tUse SSL - for HTTP and Payload module (use https:// for in url for http-uri)\n";
 	print "\t-u\tURL with the part to be fuzzed marked as TRAVERSAL (e.g. http://foo:8080/id.php?x=TRAVERSAL&y=31337)\n";
 	print "\t-k\tText pattern to match in the response (http-url & payload modules - e.g. \"root:\" if trying /etc/passwd)\n";
 	print "\t-p\tFilename with the payload to be sent and the part to be fuzzed marked with the TRAVERSAL keyword\n";
@@ -283,7 +283,7 @@ switch($module){
 	case "ftp"      { $n_travs = FuzzFTP($host, $port, $user, $pass); }
 	case "http"     { $n_travs = FuzzHTTP($host, $port, $ssl, $method); }
 	case "tftp"     { $n_travs = FuzzTFTP($host, $port); }
-	case "payload"  { $n_travs = FuzzPayload($host, $port, $payload); }
+	case "payload"  { $n_travs = FuzzPayload($host, $port, $ssl, $payload); }
 	case "http-url" { $n_travs = FuzzHTTP_Url($url); }
 }
 

@@ -20,10 +20,11 @@ use Exporter 'import';
 use DotDotPwn::BisectionAlgorithm;
 
 use IO::Socket;
+use IO::Socket::SSL;
 use Time::HiRes qw(usleep);
 
 sub FuzzPayload{
-	my ($host, $port, $payload, $bisection_request) = @_;
+	my ($host, $port, $ssl, $payload, $bisection_request) = @_;
 	my $sock, $response;
 	our $n_travs = 0;
 	my $foo = 0; # Used as an auxiliary variable in quiet mode (see below)
@@ -36,9 +37,18 @@ sub FuzzPayload{
 		$tmp_payload = $payload;
 		$tmp_payload =~ s/TRAVERSAL/$traversal/g;
 
-		if(!($sock = IO::Socket::INET->new(	PeerAddr => $host,
-							PeerPort => $port,
-							Proto => 'tcp'))){ # You can replace 'tcp' by 'udp' in case of ...
+    if ($ssl) {
+      $sock = IO::Socket::SSL->new(
+        PeerAddr => $host,
+        PeerPort => $port,
+      );
+    } else {
+      $sock = IO::Socket::INET->new(
+        PeerAddr => $host,
+				PeerPort => $port,
+      );
+    }
+    if (!$sock) {
 			my $runtime = time - $main::start_time;
 			for my $fh (STDOUT, REPORT) {
 				printf $fh "\n[+] Fuzz testing finished after %.2f minutes ($runtime seconds)\n", ($runtime / 60);
