@@ -24,7 +24,7 @@ use LWP::UserAgent;
 use Time::HiRes qw(usleep);
 
 sub FuzzHTTP_Url{
-	my ($url, $bisection_request) = @_;
+	my ($url, $ping, $bisection_request) = @_;
 	our $n_travs = 0;
 	my $foo = 0; # Used as an auxiliary variable in quiet mode (see below)
 	my $UserAgent;
@@ -67,8 +67,9 @@ sub FuzzHTTP_Url{
 				printf $fh "\n[+] Fuzz testing finished after %.2f minutes ($runtime seconds)\n", ($runtime / 60);
 				print  $fh "[+] Total Traversals found (so far): $n_travs\n";
 			}
-
-			die "[-] Web server didn't respond !\n";
+			if(!$ping){
+				die "[-] Web server didn't respond !\n";
+			}
 		}
 
 		if($resp->content =~ /$main::pattern/s ){
