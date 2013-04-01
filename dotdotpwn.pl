@@ -106,7 +106,7 @@ if(@ARGV < 2){ # -m module required
 	print "\t-O\tOperating System detection for intelligent fuzzing (nmap)\n";
 	print "\t-o\tOperating System type if known (\"windows\", \"unix\" or \"generic\")\n";
 	print "\t-s\tService version detection (banner grabber)\n";
-	print "\t-d\tDeep of traversals (e.g. deepness 3 equals to ../../../; default: 6)\n";
+	print "\t-d\tDepth of traversals (e.g. deepness 3 equals to ../../../; default: 6)\n";
 	print "\t-f\tSpecific filename (e.g. /etc/motd; default: according to OS detected, defaults in TraversalEngine.pm)\n";
 	print "\t-E\tAdd \@Extra_files in TraversalEngine.pm (e.g. web.config, httpd.conf, etc.)\n";
   print "\t-S\tUse SSL - for HTTP and Payload module (use https:// for in url for http-uri)\n";
@@ -122,12 +122,13 @@ if(@ARGV < 2){ # -m module required
 	print "\t-M\tHTTP Method to use when using the 'http' module [GET | POST | HEAD | COPY | MOVE] (default: GET)\n";
 	print "\t-r\tReport filename (default: 'HOST_MM-DD-YYYY_HOUR-MIN.txt')\n";
 	print "\t-b\tBreak after the first vulnerability is found\n";
-	print "\t-q\tQuiet mode (doesn't print each attemp)\n";
+	print "\t-q\tQuiet mode (doesn't print each attempt)\n";
+	print "\t-C\tContinue if no data was received from host\n";
 
 	exit;
 }
 
-getopts("qXOSsbEm:h:U:P:f:u:k:d:x:t:p:o:r:M:e:");
+getopts("qXOSsCbEm:h:U:P:f:u:k:d:x:t:p:o:r:M:e:");
 
 our $module  = $opt_m || die "Module is neccesary (-m)\n";
 our $host    = $opt_h || die "Hostname is neccesary (-h)\n" unless ($module eq "http-url" || $module eq "stdout");
@@ -147,6 +148,7 @@ our $extens  = $opt_e;
 my  $OS      = $opt_O;
 my  $o_type  = $opt_o;
 my  $serv    = $opt_s;
+my  $ping    = $opt_C;
 our $bisect  = $opt_X;
 our $time    = ($opt_t || 300) * 1000; # Time in milliseconds between each test
 our $start_time; # Will hold the time at the beginning of execution
@@ -281,10 +283,10 @@ use Switch;
 
 switch($module){
 	case "ftp"      { $n_travs = FuzzFTP($host, $port, $user, $pass); }
-	case "http"     { $n_travs = FuzzHTTP($host, $port, $ssl, $method); }
+	case "http"     { $n_travs = FuzzHTTP($host, $port, $ssl, $method, $ping); }
 	case "tftp"     { $n_travs = FuzzTFTP($host, $port); }
 	case "payload"  { $n_travs = FuzzPayload($host, $port, $ssl, $payload); }
-	case "http-url" { $n_travs = FuzzHTTP_Url($url); }
+	case "http-url" { $n_travs = FuzzHTTP_Url($url, $ping); }
 }
 
 $runtime = time - $start_time;
