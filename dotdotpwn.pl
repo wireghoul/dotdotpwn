@@ -174,7 +174,7 @@ switch($module){
 		die "URL is neccesary (-u)\n" unless $url;
 
 		# URL Parsing
-		die "Invalid URL format!\n" if $url !~ m|(\w+)://([\w\.]+):?(\d*)?/|;
+		die "Invalid URL format!\n" if $url !~ m|(\w+)://([\w\.\-]+):?(\d*)?/|;
 
 		$port = 80;
 		$proto_url = $1;
