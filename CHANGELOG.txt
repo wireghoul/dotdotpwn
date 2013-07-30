@@ -10,7 +10,7 @@ Release date: DD/MMM/2013
 Changes / Enhancements / Features:
 HTTP::Lite dependancy removed (Replaced with LWP core modules)
 * -S switch enables SSL for the http module
-* http-uri module supports SSL via https:// url
+* http-url module supports SSL via https:// url
 * More dot encodings to bypass string replace and blacklist filters
 
 ----------------
