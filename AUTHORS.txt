@@ -1,4 +1,3 @@
-
                      --= CORE DEVELOPMENT TEAM =--
 
  Christian Navarrete aka chr1x         Alejandro Hernandez H. aka nitr0us
@@ -19,7 +18,7 @@
 -------------------------------------
 
 Contribution: Idea and Code
-SSL support in http-uri and http modules. 
+SSL support in http-url and http modules. 
 Changed from HTTP::Lite to core HTTP libraries (LWP).
 Added more dot encodings
 By: Eldar Marcussen aka Wireghoul
