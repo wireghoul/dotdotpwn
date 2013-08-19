@@ -168,7 +168,7 @@ print $DotDotPwn if $module ne "stdout";
 # Variable asignment and other validations per module
 switch($module){
 	case "ftp"  {	$port = $opt_x || 21;	}
-	case "http" {	$port = $opt_x || $ssl ? 443 : 80;	}
+	case "http" {	$port = $ssl ? 443 : 80; $port = $opt_x if $opt_x;	}
 	case "tftp" {	$port = $opt_x || 69;	}
 	case "http-url" {
 		die "URL is neccesary (-u)\n" unless $url;
