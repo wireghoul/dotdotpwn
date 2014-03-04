@@ -58,7 +58,7 @@ sub BisectionAlgorithm{
 
 	push @Traversal_Patterns, @DotDotPwn::TraversalEngine::Special_Patterns;
 
-	print "BisectionAlgorithm() INPUT: $bisection_traversal_in\n";
+    # print "BisectionAlgorithm() INPUT: $bisection_traversal_in\n";
 
 	# Reverse order to start the matching with the largest encoding representations
 	# N-byte... 4-byte, 3-byte, and so on
@@ -89,7 +89,7 @@ sub BisectionAlgorithm{
 		}
 	}
 
-	print "REGEX pattern is '$pattern' (of matched traversal pattern '$trav_pattern')\n";
+    # print "REGEX pattern is '$pattern' (of matched traversal pattern '$trav_pattern')\n";
 
 	switch($main::module){
 		case "ftp"  {
@@ -126,7 +126,7 @@ sub BisectionAlgorithm{
 		case "http-url" {
 			# Get the filename from the URL
 			$bisection_traversal_in =~ /($pattern)+(.+)/;
-			print "REGEX matched memories \$1: $1 - \$2: $2\n";
+            # print "REGEX matched memories \$1: $1 - \$2: $2\n";
 			$file = $2;
 			$url = $main::url;
 			$payload = $trav_pattern x $medium_point;
@@ -134,7 +134,7 @@ sub BisectionAlgorithm{
 			$url =~ s/TRAVERSAL//;
 			$bisection_traversal_out = $url . $payload . $file;
 
-			print "BisectionAlgorithm() OUTPUT: $url $file $payload $bisection_traversal_out\n";
+            # print "BisectionAlgorithm() OUTPUT: $url $file $payload $bisection_traversal_out\n";
 			$vulnerable = DotDotPwn::HTTP_Url::FuzzHTTP_Url( 0, 0,$bisection_traversal_out);
 		}
 		case "payload" {
