@@ -97,35 +97,35 @@ my $DotDotPwn  =
 ';
 
 if(@ARGV < 2){ # -m module required
-	print $DotDotPwn; # Banner
+    print $DotDotPwn; # Banner
 
-	print "Usage: $0 -m <module> -h <host> [OPTIONS]\n";
-	print "\tAvailable options:\n";
-	print "\t-m\tModule [http | http-url | ftp | tftp | payload | stdout]\n";
-	print "\t-h\tHostname\n";
-	print "\t-O\tOperating System detection for intelligent fuzzing (nmap)\n";
-	print "\t-o\tOperating System type if known (\"windows\", \"unix\" or \"generic\")\n";
-	print "\t-s\tService version detection (banner grabber)\n";
-	print "\t-d\tDepth of traversals (e.g. deepness 3 equals to ../../../; default: 6)\n";
-	print "\t-f\tSpecific filename (e.g. /etc/motd; default: according to OS detected, defaults in TraversalEngine.pm)\n";
-	print "\t-E\tAdd \@Extra_files in TraversalEngine.pm (e.g. web.config, httpd.conf, etc.)\n";
-  print "\t-S\tUse SSL - for HTTP and Payload module (use https:// for in url for http-url)\n";
-	print "\t-u\tURL with the part to be fuzzed marked as TRAVERSAL (e.g. http://foo:8080/id.php?x=TRAVERSAL&y=31337)\n";
-	print "\t-k\tText pattern to match in the response (http-url & payload modules - e.g. \"root:\" if trying /etc/passwd)\n";
-	print "\t-p\tFilename with the payload to be sent and the part to be fuzzed marked with the TRAVERSAL keyword\n";
-	print "\t-x\tPort to connect (default: HTTP=80; FTP=21; TFTP=69)\n";
-	print "\t-t\tTime in milliseconds between each test (default: 300 (.3 second))\n";
-	print "\t-X\tUse the Bisection Algorithm to detect the exact deepness once a vulnerability has been found\n";
-	print "\t-e\tFile extension appended at the end of each fuzz string (e.g. \".php\", \".jpg\", \".inc\")\n";
-	print "\t-U\tUsername (default: 'anonymous')\n";
-	print "\t-P\tPassword (default: 'dot\@dot.pwn')\n";
-	print "\t-M\tHTTP Method to use when using the 'http' module [GET | POST | HEAD | COPY | MOVE] (default: GET)\n";
-	print "\t-r\tReport filename (default: 'HOST_MM-DD-YYYY_HOUR-MIN.txt')\n";
-	print "\t-b\tBreak after the first vulnerability is found\n";
-	print "\t-q\tQuiet mode (doesn't print each attempt)\n";
-	print "\t-C\tContinue if no data was received from host\n";
+    print "Usage: $0 -m <module> -h <host> [OPTIONS]\n";
+    print "\tAvailable options:\n";
+    print "\t-m\tModule [http | http-url | ftp | tftp | payload | stdout]\n";
+    print "\t-h\tHostname\n";
+    print "\t-O\tOperating System detection for intelligent fuzzing (nmap)\n";
+    print "\t-o\tOperating System type if known (\"windows\", \"unix\" or \"generic\")\n";
+    print "\t-s\tService version detection (banner grabber)\n";
+    print "\t-d\tDepth of traversals (e.g. deepness 3 equals to ../../../; default: 6)\n";
+    print "\t-f\tSpecific filename (e.g. /etc/motd; default: according to OS detected, defaults in TraversalEngine.pm)\n";
+    print "\t-E\tAdd \@Extra_files in TraversalEngine.pm (e.g. web.config, httpd.conf, etc.)\n";
+    print "\t-S\tUse SSL for HTTP and Payload module (not needed for http-url, use a https:// url instead)\n";
+    print "\t-u\tURL with the part to be fuzzed marked as TRAVERSAL (e.g. http://foo:8080/id.php?x=TRAVERSAL&y=31337)\n";
+    print "\t-k\tText pattern to match in the response (http-url & payload modules - e.g. \"root:\" if trying /etc/passwd)\n";
+    print "\t-p\tFilename with the payload to be sent and the part to be fuzzed marked with the TRAVERSAL keyword\n";
+    print "\t-x\tPort to connect (default: HTTP=80; FTP=21; TFTP=69)\n";
+    print "\t-t\tTime in milliseconds between each test (default: 300 (.3 second))\n";
+    print "\t-X\tUse the Bisection Algorithm to detect the exact deepness once a vulnerability has been found\n";
+    print "\t-e\tFile extension appended at the end of each fuzz string (e.g. \".php\", \".jpg\", \".inc\")\n";
+    print "\t-U\tUsername (default: 'anonymous')\n";
+    print "\t-P\tPassword (default: 'dot\@dot.pwn')\n";
+    print "\t-M\tHTTP Method to use when using the 'http' module [GET | POST | HEAD | COPY | MOVE] (default: GET)\n";
+    print "\t-r\tReport filename (default: 'HOST_MM-DD-YYYY_HOUR-MIN.txt')\n";
+    print "\t-b\tBreak after the first vulnerability is found\n";
+    print "\t-q\tQuiet mode (doesn't print each attempt)\n";
+    print "\t-C\tContinue if no data was received from host\n";
 
-	exit;
+    exit;
 }
 
 getopts("qXOSsCbEm:h:U:P:f:u:k:d:x:t:p:o:r:M:e:");
