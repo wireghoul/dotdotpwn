@@ -61,7 +61,7 @@ sub FuzzHTTP_Url{
 			}
 		}
 		$resp = $http->get($tmp_url);
-		if(!$resp->is_success){
+		if($resp->status_line =~/^500 / && $resp->content =~ /^500 /) { # cruddy backwards compatible way to correctly handle connection errors
 			my $runtime = time - $main::start_time;
 			for my $fh (STDOUT, REPORT) {
 				printf $fh "\n[+] Fuzz testing finished after %.2f minutes ($runtime seconds)\n", ($runtime / 60);
