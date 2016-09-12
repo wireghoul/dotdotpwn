@@ -37,7 +37,7 @@ use DotDotPwn::TFTP;
 use DotDotPwn::Payload;
 
 ## Perl modules ##
-use Switch;
+#use Switch;
 
 sub BisectionAlgorithm{
 	my ($a, $b, $bisection_traversal_in) = @_;
@@ -91,8 +91,8 @@ sub BisectionAlgorithm{
 
     # print "REGEX pattern is '$pattern' (of matched traversal pattern '$trav_pattern')\n";
 
-	switch($main::module){
-		case "ftp"  {
+	#switch($main::module){
+	if ($main::module eq "ftp")  {
 			$bisection_traversal_in =~ /($pattern)+(.+)/;
 			# print "REGEX matched memories \$1: $1 - \$2: $2\n";
 			$file = $2;
@@ -101,8 +101,8 @@ sub BisectionAlgorithm{
 
 			# print "BisectionAlgorithm() OUTPUT: $bisection_traversal_out\n";
 			$vulnerable = DotDotPwn::FTP::FuzzFTP($main::host, $main::port, $main::user, $main::pass, $bisection_traversal_out);
-		}
-		case "http" {
+	}
+	if ($main::module eq "http") {
 			$bisection_traversal_in =~ /($pattern)+(.+)/;
 			# print "REGEX matched memories \$1: $1 - \$2: $2\n";
 			$file = $2;
@@ -112,8 +112,8 @@ sub BisectionAlgorithm{
 
 			# print "BisectionAlgorithm() OUTPUT: $bisection_traversal_out\n";
 			$vulnerable = DotDotPwn::HTTP::FuzzHTTP("USELESS", "USELESS", $main::method, $bisection_traversal_out);
-		}
-		case "tftp" {
+	}
+	if ($main::module eq "tftp") {
 			$bisection_traversal_in =~ /($pattern)+(.+)/;
 			# print "REGEX matched memories \$1: $1 - \$2: $2\n";
 			$file = $2;
@@ -122,8 +122,8 @@ sub BisectionAlgorithm{
 
 			# print "BisectionAlgorithm() OUTPUT: $bisection_traversal_out\n";
 			$vulnerable = DotDotPwn::TFTP::FuzzTFTP($main::host, $main::port, $bisection_traversal_out);
-		}
-		case "http-url" {
+	}
+	if ($main::module eq "http-url") {
 			# Get the filename from the URL
 			$bisection_traversal_in =~ /($pattern)+(.+)/;
             # print "REGEX matched memories \$1: $1 - \$2: $2\n";
@@ -136,8 +136,8 @@ sub BisectionAlgorithm{
 
             # print "BisectionAlgorithm() OUTPUT: $url $file $payload $bisection_traversal_out\n";
 			$vulnerable = DotDotPwn::HTTP_Url::FuzzHTTP_Url( 0, 0,$bisection_traversal_out);
-		}
-		case "payload" {
+	}
+	if ($main::module eq "payload") {
 			# (nitr0us) It could be improved, definitely. The \s instead of the whitespace in the REGEX never worked =@ grr
 			$bisection_traversal_in =~ /($pattern)+(.+) /g;
 			# print "REGEX matched memories \$1: $1 - \$2: $2\n";
@@ -148,8 +148,8 @@ sub BisectionAlgorithm{
 
 			# print "BisectionAlgorithm() OUTPUT: $bisection_traversal_out\n";
 			$vulnerable = DotDotPwn::Payload::FuzzPayload($main::host, $main::port, "USELESS", $bisection_traversal_out);
-		}
 	}
+	#}
 
 	printf "[+] Medium point between %2d - %2d = $medium_point;\tVulnerable = " . ($vulnerable ? "YES" : "NO") . "\n", $a, $b;
 

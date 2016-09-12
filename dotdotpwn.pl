@@ -69,7 +69,7 @@ use DotDotPwn::BisectionAlgorithm;
 
 ## Perl modules ##
 use Getopt::Std;
-use Switch;
+#use Switch;
 
 my $DotDotPwn  =
 '#################################################################################
@@ -166,53 +166,51 @@ print $DotDotPwn if $module ne "stdout";
 
 
 # Variable asignment and other validations per module
-switch($module){
-	case "ftp"  {	$port = $opt_x || 21;	}
-	case "http" {	$port = $ssl ? 443 : 80; $port = $opt_x if $opt_x;	}
-	case "tftp" {	$port = $opt_x || 69;	}
-	case "http-url" {
-		die "URL is neccesary (-u)\n" unless $url;
+#switch($module){
+if ($module eq "ftp")  { 
+	$port = $opt_x || 21; 
+} elsif ($module eq "http") { 
+	$port = $ssl ? 443 : 80; $port = $opt_x if $opt_x; 
+} elsif ($module eq "tftp") { 
+	$port = $opt_x || 69;
+} elsif ($module eq "http-url") {
+	die "URL is neccesary (-u)\n" unless $url;
 
-		# URL Parsing
-		die "Invalid URL format!\n" if $url !~ m|(\w+)://([\w\.\-]+):?(\d*)?/|;
+	# URL Parsing
+	die "Invalid URL format!\n" if $url !~ m|(\w+)://([\w\.\-]+):?(\d*)?/|;
 
-		$port = 80;
-		$proto_url = $1;
-		$port = 443 if ($proto_url eq 'https');
-		$host  = $2;
-		$port = $3 if $3;
+	$port = 80;
+	$proto_url = $1;
+	$port = 443 if ($proto_url eq 'https');
+	$host  = $2;
+	$port = $3 if $3;
 
-		#die "'$proto_url' Protocol not supported\n" if $proto_url ne "http";
+	#die "'$proto_url' Protocol not supported\n" if $proto_url ne "http";
+	die "No \"TRAVERSAL\" keyword found in the supplied URL\n" if $url !~ /TRAVERSAL/;
+	die "Pattern string to match is neccesary (-k)\n" unless $pattern;
+} elsif ($module eq "payload") {
+	$port = $opt_x || die "Port number is necessary (-x)\n";
+	die "Payload file is necessary (-p)\n" unless $payload_file;
+	die "Pattern string to match is neccesary (-k)\n" unless $pattern;
 
-		die "No \"TRAVERSAL\" keyword found in the supplied URL\n" if $url !~ /TRAVERSAL/;
+	open PAYLOAD_FD, $payload_file or die "Cannot open $payload_file: $!";
 
-		die "Pattern string to match is neccesary (-k)\n" unless $pattern;
-	}
-	case "payload" {
-		$port = $opt_x || die "Port number is necessary (-x)\n";
-		die "Payload file is necessary (-p)\n" unless $payload_file;
-		die "Pattern string to match is neccesary (-k)\n" unless $pattern;
+	# Undef the end of record character to read the whole file into one scalar variable
+	undef $/;
 
-		open PAYLOAD_FD, $payload_file or die "Cannot open $payload_file: $!";
+	$payload = <PAYLOAD_FD>;
 
-		# Undef the end of record character to read the whole file into one scalar variable
-		undef $/;
+	close PAYLOAD_FD;
 
-		$payload = <PAYLOAD_FD>;
+	$/ = "\n"; # Restore for normal behaviour
 
-		close PAYLOAD_FD;
-
-		$/ = "\n"; # Restore for normal behaviour
-
-		die "No \"TRAVERSAL\" keyword found in the supplied payload file\n" if $payload !~ /TRAVERSAL/;
-	}
-	case "stdout" {
-		@traversals = TraversalEngine(OS_type($o_type), $deep, $file);
-		toSTDOUT();
-		exit;
-	}
-	else { print "[-] Invalid Module ($module)!\n"; exit; }
-}
+	die "No \"TRAVERSAL\" keyword found in the supplied payload file\n" if $payload !~ /TRAVERSAL/;
+} elsif ($module eq "stdout") {
+	@traversals = TraversalEngine(OS_type($o_type), $deep, $file);
+	toSTDOUT();
+	exit;
+} else { print "[-] Invalid Module ($module)!\n"; exit; }
+#}
 
 
 ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = localtime(time);
@@ -279,15 +277,15 @@ $start_time = time;
 # that raises an error in the next switch($module) statement
 #
 # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=480106
-use Switch;
+#use Switch;
 
-switch($module){
-	case "ftp"      { $n_travs = FuzzFTP($host, $port, $user, $pass); }
-	case "http"     { $n_travs = FuzzHTTP($host, $port, $ssl, $method, $ping); }
-	case "tftp"     { $n_travs = FuzzTFTP($host, $port); }
-	case "payload"  { $n_travs = FuzzPayload($host, $port, $ssl, $payload); }
-	case "http-url" { $n_travs = FuzzHTTP_Url($url, $ping); }
-}
+#switch($module){
+if ($module eq "ftp")      { $n_travs = FuzzFTP($host, $port, $user, $pass); }
+if ($module eq "http")     { $n_travs = FuzzHTTP($host, $port, $ssl, $method, $ping); }
+if ($module eq "tftp")     { $n_travs = FuzzTFTP($host, $port); }
+if ($module eq "payload")  { $n_travs = FuzzPayload($host, $port, $ssl, $payload); }
+if ($module eq "http-url") { $n_travs = FuzzHTTP_Url($url, $ping); }
+#}
 
 $runtime = time - $start_time;
 for my $fh (STDOUT, REPORT) {

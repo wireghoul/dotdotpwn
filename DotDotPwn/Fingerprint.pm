@@ -16,7 +16,7 @@ use Exporter 'import';
 
 use Socket qw/ :DEFAULT :crlf /; # $CRLF
 use IO::Socket;
-use Switch;
+#use Switch;
 
 $| = 1;
 
@@ -47,36 +47,35 @@ sub Banner_Grabber{
 					Proto => 'tcp')
 		or die "[-] Couldn't connect to $host on port $port: $!\n";
 
-	switch($proto){
-		case "http" {
-			$sock->send("HEAD / HTTP/1.0" . $CRLF . $CRLF);
-			$sock->recv($response, 1024);
+	#switch($proto){
+	if ($proto eq "http") {
+		$sock->send("HEAD / HTTP/1.0" . $CRLF . $CRLF);
+		$sock->recv($response, 1024);
+
+		if($response =~ /Server: (.*)/){
+			$sock->close();
+			$banner = $1;
+		} else {
+			$sock2 = IO::Socket::INET->new(	PeerAddr => $host,
+							PeerPort => $port,
+							Proto => 'tcp')
+				or die "[-] Couldn't connect to $host on port $port: $!\n";
+
+			$sock2->send("HEAD / HTTP/1.1" . $CRLF . $CRLF);
+			$sock2->recv($response, 1024);
 
 			if($response =~ /Server: (.*)/){
-				$sock->close();
-				$banner = $1;
-			} else {
-				$sock2 = IO::Socket::INET->new(	PeerAddr => $host,
-								PeerPort => $port,
-								Proto => 'tcp')
-					or die "[-] Couldn't connect to $host on port $port: $!\n";
-
-				$sock2->send("HEAD / HTTP/1.1" . $CRLF . $CRLF);
-				$sock2->recv($response, 1024);
-
-				if($response =~ /Server: (.*)/){
-					$sock2->close();
-					$banner = $1;
-				}
-
 				$sock2->close();
+				$banner = $1;
 			}
+
+			$sock2->close();
 		}
-		else {
-			$sock->recv($response, 1024);
-			$banner = $response;
-		}
+	} else {
+		$sock->recv($response, 1024);
+		$banner = $response;
 	}
+	#}
 
 	$sock->close();
 
@@ -85,17 +84,14 @@ sub Banner_Grabber{
 
 sub OS_type{
 	my $OS_string = shift;
-
-	switch($OS_string){
-		case /linux/i     { return "unix"; }
-		case /bsd/i       { return "unix"; }
-		case /solaris/i   { return "unix"; }
-		case /aix/i       { return "unix"; }
-		case /irix/i      { return "unix"; }
-		case /mac/i       { return "unix"; }
-		case /unix/i      { return "unix"; }
-		case /windows/i   { return "windows"; }
-		case /microsoft/i { return "windows"; }
-		else {              return "generic"; }
+        
+        my @unixes=('linux','bsd','solaris','aix','irix','mac','unix');
+        my @windoz=('windows','micosoft');
+	if (grep /$OS_type/i, @unixes ) { 
+		return "unix"; 
+ 	} elsif (grep /$OS_type/i, @windoz) {
+		return "windows";
+	} else {
+		return "generic";
 	}
 }
