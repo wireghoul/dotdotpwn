@@ -33,11 +33,11 @@ use Exporter 'import';
 my @Traversals;
 
 # Specific files in Windows b0xes
-my @Windows_files = ("boot.ini", "\\windows\\system32\\drivers\\etc\\hosts");
+my @Windows_files = ('boot.ini', '\windows\win.ini', '\windows\system32\drivers\etc\hosts');
                      # "autoexec.bat"); YOU CAN ALSO ADD THESE AND MORE UNDER YOUR CONSIDERATION
 
 # Specific files in UNIX-based b0xes
-my @Unix_files = ("/etc/passwd", "/etc/issue");
+my @Unix_files = ('/etc/passwd', '/etc/issue');
                   # "/etc/motd", /etc/issue.net"); YOU CAN ALSO ADD THESE AND MORE UNDER YOUR CONSIDERATION
 
 # Extra files (only included if -E switch is enabled)
