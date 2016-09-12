@@ -10,7 +10,10 @@ use Exporter 'import';
 
 use DotDotPwn::BisectionAlgorithm;
 
-use TFTP;
+my $tftpm=eval { require TFTP; };
+if (!$tftpm) {
+	warn "Unable to load TFTP module, is it installed?\n";
+}
 use Time::HiRes qw(usleep);
 
 sub FuzzTFTP{
