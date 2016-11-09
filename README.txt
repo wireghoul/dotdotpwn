@@ -10,7 +10,7 @@ payload to the host and port specified. On the other hand, it
 also could be used in a scripting way using the STDOUT module.
 
 It's written in perl programming language and can be run 
-either under *NIX or Windows platforms. It's the first Mexican 
+either under OS X, *NIX or Windows platforms. It's the first Mexican 
 tool included in BackTrack Linux (BT4 R2).
 
 Fuzzing modules supported in this version: 
@@ -34,12 +34,11 @@ Only if you plan to use the OS detection feature
 
 Perl modules:
 - Net::FTP
-- TFTP
+- TFTP (only required if fuzzing TFTP)
 - Time::HiRes
 - Socket
 - IO::Socket
 - Getopt::Std
-- Switch
 
 You can easily install the missing modules doing the 
 following as root:
@@ -72,7 +71,6 @@ Bugs / Contributions / Improvements: dotdotpwn@sectester.net
 
  CubilFelino Security Research Lab     Chatsubo [(in)Security Dark] Labs
    http://chr1x.sectester.net          http://chatsubo-labs.blogspot.com   
-
 
 
 === CHANGE HISTORY ===
