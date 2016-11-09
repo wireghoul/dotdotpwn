@@ -4,11 +4,28 @@ CHANGELOG
 This file contains the history of the changes made to DotDotPwn since
 it's conception.
 ----------------
-DotDotPwn v3.0.1
-Release date: DD/MMM/2013
+DotDotPwn v3.0.2
+Release date: 09/Nov/2016
 
 Changes / Enhancements / Features:
-HTTP::Lite dependancy removed (Replaced with LWP core modules)
+* Several new and improved fuzz patterns
+* Added more traversal prefix and suffixes
+* Fixed reports folder bug
+* Fixed mistaken server outage detection
+* Fixed whitespace and typo issues
+* Bisection module fixes
+* Documentation updates
+* More os specific file variants
+* Removed Switch dependency
+* Only require TFTP module if fuzzing TFTP
+
+----------------
+DotDotPwn v3.0.1
+Release date: 02/Apr/2013
+
+Changes / Enhancements / Features:
+* HTTP::Lite dependancy removed (Replaced with LWP core modules)
+* -C switch to continue fuzzing (Instead of die()'ing)
 * -S switch enables SSL for the http module
 * http-url module supports SSL via https:// url
 * More dot encodings to bypass string replace and blacklist filters
