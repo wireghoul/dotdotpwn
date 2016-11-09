@@ -32,7 +32,7 @@
 #
 # Changes (Read CHANGELOG.txt for Details):
 #
-# * DotDotPwn v3.0: The Directory Traversal Fuzzer
+# * DotDotPwn v3.0.2: The Directory Traversal Fuzzer
 #   by nitr0us & chr1x & Contributors (AUTHORS.txt)
 #
 # * DotDotPwn v2.1: The Directory Traversal Fuzzer
@@ -86,7 +86,7 @@ my $DotDotPwn  =
 #   |    `   \(  <_> )|  |  |    `   \(  <_> )|  |  |    |     \     /|   |  \  #
 #  /_______  / \____/ |__| /_______  / \____/ |__|  |____|      \/\_/ |___|  /  #
 #          \/                      \/                                      \/   #
-#                               - DotDotPwn v3.0 -                              #
+#                              - DotDotPwn v3.0.2 -                             #
 #                         The Directory Traversal Fuzzer                        #
 #                         http://dotdotpwn.sectester.net                        #
 #                            dotdotpwn@sectester.net                            #
