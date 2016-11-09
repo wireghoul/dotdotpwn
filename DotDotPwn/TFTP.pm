@@ -11,15 +11,17 @@ use Exporter 'import';
 use DotDotPwn::BisectionAlgorithm;
 
 my $tftpm=eval { require TFTP; };
-if (!$tftpm) {
-	warn "Unable to load TFTP module, is it installed?\n";
-}
 use Time::HiRes qw(usleep);
 
 sub FuzzTFTP{
 	my ($host, $port, $bisection_request) = @_;
 	our $n_travs = 0;
 
+        # Fail if the TFTP module is missing...
+        if (!$tftpm) {
+            print "[!] Unable to load TFTP module, is it installed?\n";
+            exit;
+        }
 	if(!$bisection_request){
 		open(REPORT , ">>$main::report");
 
