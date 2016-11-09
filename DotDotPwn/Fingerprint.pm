@@ -87,9 +87,9 @@ sub OS_type{
         
         my @unixes=('linux','bsd','solaris','aix','irix','mac','unix');
         my @windoz=('windows','micosoft');
-	if (grep /$OS_type/i, @unixes ) { 
+	if (grep /$OS_string/i, @unixes ) { 
 		return "unix"; 
- 	} elsif (grep /$OS_type/i, @windoz) {
+ 	} elsif (grep /$OS_string/i, @windoz) {
 		return "windows";
 	} else {
 		return "generic";
