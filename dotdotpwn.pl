@@ -168,11 +168,23 @@ print $DotDotPwn if $module ne "stdout";
 # Variable asignment and other validations per module
 #switch($module){
 if ($module eq "ftp")  { 
-	$port = $opt_x || 21; 
+	if (defined $opt_x) {
+		$port = $opt_x;
+	} else {
+		$port = 21;
+	}
 } elsif ($module eq "http") { 
-	$port = $ssl ? 443 : 80; $port = $opt_x if $opt_x; 
+	if (defined $opt_x) {
+		$port = $opt_x;
+	} else {
+		$port = $ssl ? 443 : 80;
+	}
 } elsif ($module eq "tftp") { 
-	$port = $opt_x || 69;
+	if (defined $opt_x) {
+		$port = $opt_x;
+	} else {
+		$port = 69;
+	}
 } elsif ($module eq "http-url") {
 	die "URL is neccesary (-u)\n" unless $url;
 
