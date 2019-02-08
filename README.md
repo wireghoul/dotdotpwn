@@ -1,4 +1,5 @@
-=== DESCRIPTION ===
+### DESCRIPTION ###
+
 DotDotPwn - The Directory Traversal Fuzzer
 
 It's a very flexible intelligent fuzzer to discover traversal 
@@ -22,9 +23,8 @@ Fuzzing modules supported in this version:
 - STDOUT
 
 
+### REQUIREMENTS ###
 
-
-=== REQUIREMENTS ===
 - Perl (http://www.perl.org)
 Programmed and tested on Perl 5.8.8 and 5.10
 
@@ -42,28 +42,34 @@ Perl modules:
 
 You can easily install the missing modules doing the 
 following as root:
+
+```
 # perl -MCPAN -e "install <MODULE_NAME>"
+```
+
 or
+
+```
 # cpan 
 cpan> install <MODULE_NAME>
+```
 
 
+### EXAMPLES ###
 
-
-=== EXAMPLES ===
 Read EXAMPLES.txt
 
 
+### CONTACT ###
 
-=== CONTACT ===
 Official Website: http://dotdotpwn.sectester.net
 Official Email:   dotdotpwn@sectester.net
 Bugs / Contributions / Improvements: dotdotpwn@sectester.net
 
 
+### AUTHORS ###
 
-=== AUTHORS ===
-
+```
  Christian Navarrete aka chr1x         Alejandro Hernandez H. aka nitr0us
    http://twitter.com/chr1x              http://twitter.com/nitr0usmx
       chr1x@sectester.net                  nitrousenador@gmail.com
@@ -71,14 +77,15 @@ Bugs / Contributions / Improvements: dotdotpwn@sectester.net
 
  CubilFelino Security Research Lab     Chatsubo [(in)Security Dark] Labs
    http://chr1x.sectester.net          http://chatsubo-labs.blogspot.com   
+```
 
+### CHANGE HISTORY ###
 
-=== CHANGE HISTORY ===
 Read CHANGELOG.txt
 
+### LICENSE ###
 
-
-=== LICENSE ===
+```
 DotDotPwn - The Directory Traversal Fuzzer
 Copyright (C) 2012 Christian Navarrete and Alejandro Hernandez H.
 
@@ -94,3 +101,4 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
+```
