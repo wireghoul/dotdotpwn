@@ -30,7 +30,7 @@ Programmed and tested on Perl 5.8.8 and 5.10
 
 - Nmap (http://www.nmap.org)
 Only if you plan to use the OS detection feature
-(needs root priviledges)
+(needs root privileges)
 
 Perl modules:
 - Net::FTP
