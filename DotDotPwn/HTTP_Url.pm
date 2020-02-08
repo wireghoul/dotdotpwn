@@ -46,6 +46,8 @@ sub FuzzHTTP_Url{
 		$UserAgent = @UserAgents[int(rand(@UserAgents))];
 		$UserAgent =~ s/[\r\n]//g;
 		$http->agent($UserAgent);
+		$http->ssl_opts(verify_hostname => 0);
+		$http->ssl_opts(SSL_verify_mode => 0x00);
 
 		my $tmp_url = $url; # Not to overwrite the TRAVERSAL token
 		$tmp_url =~ s/TRAVERSAL/$traversal/g;
