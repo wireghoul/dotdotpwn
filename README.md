@@ -2,19 +2,19 @@
 
 DotDotPwn - The Directory Traversal Fuzzer
 
-It's a very flexible intelligent fuzzer to discover traversal 
-directory vulnerabilities in software such as HTTP/FTP/TFTP 
-servers, Web platforms such as CMSs, ERPs, Blogs, etc. 
+It's a very flexible intelligent fuzzer to discover traversal
+directory vulnerabilities in software such as HTTP/FTP/TFTP
+servers, Web platforms such as CMSs, ERPs, Blogs, etc.
 
-Also, it has a protocol-independent module to send the desired 
-payload to the host and port specified. On the other hand, it 
+Also, it has a protocol-independent module to send the desired
+payload to the host and port specified. On the other hand, it
 also could be used in a scripting way using the STDOUT module.
 
-It's written in perl programming language and can be run 
-either under OS X, *NIX or Windows platforms. It's the first Mexican 
+It's written in perl programming language and can be run
+either under OS X, *NIX or Windows platforms. It's the first Mexican
 tool included in BackTrack Linux (BT4 R2).
 
-Fuzzing modules supported in this version: 
+Fuzzing modules supported in this version:
 - HTTP
 - HTTP URL
 - FTP
@@ -40,7 +40,7 @@ Perl modules:
 - IO::Socket
 - Getopt::Std
 
-You can easily install the missing modules doing the 
+You can easily install the missing modules doing the
 following as root:
 
 ```
@@ -50,7 +50,7 @@ following as root:
 or
 
 ```
-# cpan 
+# cpan
 cpan> install <MODULE_NAME>
 ```
 
@@ -58,6 +58,11 @@ cpan> install <MODULE_NAME>
 ### EXAMPLES ###
 
 Read EXAMPLES.txt
+
+Docker execution example:
+
+1. docker build -t image_name .
+1. docker run -it  image_name perl dotdotpwn.pl -m http -h 10.10.10.10
 
 
 ### CONTACT ###
@@ -76,7 +81,7 @@ Bugs / Contributions / Improvements: dotdotpwn@sectester.net
                                          http://www.brainoverflow.org
 
  CubilFelino Security Research Lab     Chatsubo [(in)Security Dark] Labs
-   http://chr1x.sectester.net          http://chatsubo-labs.blogspot.com   
+   http://chr1x.sectester.net          http://chatsubo-labs.blogspot.com
 ```
 
 ### CHANGE HISTORY ###
