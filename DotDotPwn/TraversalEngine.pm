@@ -91,7 +91,7 @@ our @Slashes = ("/", "\\",
 # of it would increase drastically the number of Traversals.
 #
 my  @Special_Prefix_Patterns = ("A", ".", "./", ".\\");
-my  @Special_Prefixes = ("///", "\\\\\\", "\\\.", "C:\\");
+my  @Special_Prefixes = ("///", "\\\\\\", "\\\.", "../../foo/", "C:\\");
 my  @Special_Mid_Patterns = ("../", "..\\");
 my  @Special_Sufixes = ("%00", "?", " ", "%00index.html", "%00index.htm", ";index.html", ";index.htm");
 our @Special_Patterns = ("..//", "..///", "..\\\\", "..\\\\\\", "../\\", "..\\/",
